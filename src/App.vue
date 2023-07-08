@@ -1,26 +1,37 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="app">
+    <button class="logout-button" v-if="route.path !== '/login'" @click="logout">Logout</button>
+    <router-view />
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import { useStore } from 'vuex'
+import { useRouter, useRoute } from 'vue-router'
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
-  }
+  setup() {
+    const store = useStore()
+    const router = useRouter()
+    const route = useRoute()
+    const logout = () => {
+      store.commit('logout')
+      router.push('/login')
+    }
+    return { logout, route }
+  },
 }
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style scoped>
+.logout-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0.5em;
+  background: none;
+  border: none;
+  font-size: 1.5em;
 }
 </style>
