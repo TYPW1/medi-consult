@@ -1,16 +1,15 @@
 <template>
   <div>
-    <h1>Login</h1>
-    <input type="text" placeholder="Username" v-model="username" />
-    <input type="password" placeholder="Password" v-model="password" />
-    <button @click="login">Login</button>
+    <h1>User Login</h1>
+    <form @submit.prevent="login">
+      <input type="text" placeholder="Username" v-model="username" />
+      <input type="password" placeholder="Password" v-model="password" />
+      <button type="submit">Login</button>
+    </form>
   </div>
 </template>
 
 <script>
-import { useStore } from 'vuex'
-import { useRouter } from 'vue-router'
-
 export default {
   name: 'UserLogin',
   data() {
@@ -19,15 +18,18 @@ export default {
       password: '',
     };
   },
-  setup() {
-    const store = useStore()
-    const router = useRouter()
-    const login = () => {
-      // Here you would normally validate the username and password
-      store.commit('login')
-      router.push('/patients')
-    }
-    return { login }
+  methods: {
+    login() {
+      // Check if the entered credentials are admin credentials
+      if (this.username === 'admin' && this.password === 'admin') {
+        this.$store.commit('adminLogin')
+        this.$router.push('/admin')
+      } else {
+        // Here you would normally validate the username and password
+        this.$store.commit('login')
+        this.$router.push('/patients')
+      }
+    },
   },
 };
 </script>

@@ -27,11 +27,21 @@ export default {
 <style scoped>
 .logout-button {
   position: absolute;
-  top: 0;
-  right: 0;
-  padding: 0.5em;
-  background: none;
-  border: none;
-  font-size: 1.5em;
+  top: 20px;
+  right: 20px;
+  padding: 10px 20px;
+  background: #f8f9fa;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  z-index: 1000;  /* Add this line */
+}
+
+.logout-button:hover {
+  background: #e9ecef;
 }
 </style>
+
+
